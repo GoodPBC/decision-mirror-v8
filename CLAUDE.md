@@ -64,4 +64,5 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - DO NOT attempt to write or edit code files without first explaining what you are changing and why you want to change it.
 - When making git commits, please remove all references to AI, Claud Code, Claude and co-authoring.
+- Always commit the code as my authenticated git user.
 - When you encounter a challenge, an error, and/or a difficulty, work through it not around it.
