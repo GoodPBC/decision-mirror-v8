@@ -1,0 +1,658 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Additional grid column utilities */
+@layer utilities {
+  .grid-cols-7 {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+  .grid-cols-8 {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+  .grid-cols-9 {
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+  }
+  .grid-cols-10 {
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+  }
+  .grid-cols-11 {
+    grid-template-columns: repeat(11, minmax(0, 1fr));
+  }
+  .grid-cols-12 {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}
+
+/* Decision Bubble Hover Effects */
+@layer utilities {
+  .bubble-hover {
+    @apply transition-all duration-200;
+  }
+
+  .bubble-hover:hover {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(12px);
+  }
+
+  /* Enhance text readability on bubbles */
+  .bubble-text {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Fade-in animation for instruction text */
+  .animate-fade-in {
+    animation: fadeIn 1.5s ease-in-out;
+  }
+
+  /* Gradient text effect matching bubble colors */
+  .gradient-text {
+    background: linear-gradient(
+      90deg,
+      rgb(96 165 250),
+      /* blue-400 */ rgb(168 85 247),
+      /* purple-400 */ rgb(244 114 182),
+      /* pink-400 */ rgb(129 140 248),
+      /* indigo-400 */ rgb(34 211 238),
+      /* cyan-400 */ rgb(196 181 253) /* violet-400 */
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 3s ease-in-out infinite;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translate(-50%, 100%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.5s ease-out;
+}
+
+/* Gradient border for clicked cards - matches visualization stage text gradient */
+.gradient-border {
+  position: relative;
+  background: linear-gradient(
+    90deg,
+    rgb(96 165 250),
+    /* blue-400 */ rgb(168 85 247),
+    /* purple-400 */ rgb(244 114 182),
+    /* pink-400 */ rgb(129 140 248),
+    /* indigo-400 */ rgb(34 211 238),
+    /* cyan-400 */ rgb(196 181 253) /* violet-400 */
+  );
+  background-size: 200% 100%;
+  animation: gradientShift 3s ease-in-out infinite;
+  padding: 2px;
+}
+
+.gradient-border-inner {
+  background: rgb(
+    31 41 55 / 0.9
+  ); /* gray-800/90 to match the original background */
+  border-radius: calc(0.5rem - 2px); /* Adjust for padding */
+  height: 100%;
+  width: 100%;
+}
+
+/* Shuffle animation for card rearrangement */
+.shuffle-animation > * {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+.shuffle-animation {
+  /* Add subtle container animation during shuffle */
+  transition: all 0.4s ease-out;
+}
+
+/* Magical card physics - realistic card dealer effect */
+.card-magic {
+  animation-duration: 1.3s; /* Quick magical shuffle */
+  animation-timing-function: cubic-bezier(
+    0.25,
+    0.46,
+    0.45,
+    0.94
+  ); /* Smoother, more natural curve */
+  animation-fill-mode: forwards;
+  transform-origin: center center;
+  will-change: transform, filter, z-index;
+}
+
+/* Cards scatter then gather - true magic trick physics */
+@keyframes magic-scatter-light {
+  0% {
+    transform: rotate(0deg) scale(1) translate(0px, 0px) translateZ(0);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    z-index: 10;
+  }
+  20% {
+    transform: rotate(calc(var(--rotation-end) * 0.3)) scale(1.02)
+      translate(var(--scatter-x), var(--scatter-y)) translateZ(0);
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
+    z-index: 15;
+  }
+  40% {
+    transform: rotate(calc(var(--rotation-end) * 0.65)) scale(1.015)
+      translate(calc(var(--scatter-x) * 1.2), calc(var(--scatter-y) * 1.2))
+      translateZ(0);
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.25));
+    z-index: 20;
+  }
+  60% {
+    transform: rotate(calc(var(--rotation-end) * 0.8)) scale(1.01)
+      translate(calc(var(--scatter-x) * 0.8), calc(var(--scatter-y) * 0.8))
+      translateZ(0);
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
+    z-index: 15;
+  }
+  75% {
+    transform: rotate(calc(var(--rotation-end) * 0.9)) scale(1.008)
+      translate(calc(var(--scatter-x) * 0.4), calc(var(--scatter-y) * 0.4))
+      translateZ(0);
+    filter: drop-shadow(0 7px 14px rgba(0, 0, 0, 0.16));
+    z-index: 10;
+  }
+  88% {
+    transform: rotate(calc(var(--rotation-end) * 0.96)) scale(1.003)
+      translate(calc(var(--scatter-x) * 0.15), calc(var(--scatter-y) * 0.15))
+      translateZ(0);
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.13));
+    z-index: 6;
+  }
+  96% {
+    transform: rotate(calc(var(--rotation-end) * 0.99)) scale(1.001)
+      translate(calc(var(--scatter-x) * 0.05), calc(var(--scatter-y) * 0.05))
+      translateZ(0);
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.11));
+    z-index: 3;
+  }
+  100% {
+    transform: rotate(var(--rotation-end)) scale(1) translate(0px, 0px)
+      translateZ(0);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    z-index: 1;
+  }
+}
+
+@keyframes magic-scatter-medium {
+  0% {
+    transform: rotate(0deg) scale(1) translate(0px, 0px) translateZ(0);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    z-index: 10;
+  }
+  15% {
+    transform: rotate(calc(var(--rotation-end) * 0.2)) scale(1.03)
+      translate(calc(var(--scatter-x) * 0.6), calc(var(--scatter-y) * 0.6))
+      translateZ(0);
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.25));
+    z-index: 25;
+  }
+  35% {
+    transform: rotate(calc(var(--rotation-end) * 0.5)) scale(1.025)
+      translate(calc(var(--scatter-x) * 1.4), calc(var(--scatter-y) * 1.4))
+      translateZ(0);
+    filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.3));
+    z-index: 35;
+  }
+  50% {
+    transform: rotate(calc(var(--rotation-end) * 0.7)) scale(1.02)
+      translate(calc(var(--scatter-x) * 1.6), calc(var(--scatter-y) * 1.6))
+      translateZ(0);
+    filter: drop-shadow(0 18px 36px rgba(0, 0, 0, 0.35));
+    z-index: 40;
+  }
+  65% {
+    transform: rotate(calc(var(--rotation-end) * 0.85)) scale(1.015)
+      translate(calc(var(--scatter-x) * 1.2), calc(var(--scatter-y) * 1.2))
+      translateZ(0);
+    filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.25));
+    z-index: 30;
+  }
+  78% {
+    transform: rotate(calc(var(--rotation-end) * 0.92)) scale(1.012)
+      translate(calc(var(--scatter-x) * 0.6), calc(var(--scatter-y) * 0.6))
+      translateZ(0);
+    filter: drop-shadow(0 11px 22px rgba(0, 0, 0, 0.22));
+    z-index: 25;
+  }
+  90% {
+    transform: rotate(calc(var(--rotation-end) * 0.97)) scale(1.006)
+      translate(calc(var(--scatter-x) * 0.25), calc(var(--scatter-y) * 0.25))
+      translateZ(0);
+    filter: drop-shadow(0 7px 14px rgba(0, 0, 0, 0.17));
+    z-index: 15;
+  }
+  97% {
+    transform: rotate(calc(var(--rotation-end) * 0.995)) scale(1.002)
+      translate(calc(var(--scatter-x) * 0.08), calc(var(--scatter-y) * 0.08))
+      translateZ(0);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.13));
+    z-index: 8;
+  }
+  100% {
+    transform: rotate(var(--rotation-end)) scale(1) translate(0px, 0px)
+      translateZ(0);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    z-index: 1;
+  }
+}
+
+@keyframes magic-scatter-heavy {
+  0% {
+    transform: rotate(0deg) scale(1) translate(0px, 0px) translateZ(0);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    z-index: 10;
+  }
+  8% {
+    transform: rotate(calc(var(--rotation-end) * 0.1)) scale(1.04)
+      translate(calc(var(--scatter-x) * 0.4), calc(var(--scatter-y) * 0.4))
+      translateZ(0);
+    filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.3));
+    z-index: 40;
+  }
+  25% {
+    transform: rotate(calc(var(--rotation-end) * 0.3)) scale(1.035)
+      translate(calc(var(--scatter-x) * 1.2), calc(var(--scatter-y) * 1.2))
+      translateZ(0);
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.35));
+    z-index: 50;
+  }
+  40% {
+    transform: rotate(calc(var(--rotation-end) * 0.55)) scale(1.03)
+      translate(calc(var(--scatter-x) * 1.8), calc(var(--scatter-y) * 1.8))
+      translateZ(0);
+    filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.4));
+    z-index: 60;
+  }
+  55% {
+    transform: rotate(calc(var(--rotation-end) * 0.72)) scale(1.025)
+      translate(calc(var(--scatter-x) * 2), calc(var(--scatter-y) * 2))
+      translateZ(0);
+    filter: drop-shadow(0 28px 56px rgba(0, 0, 0, 0.45));
+    z-index: 70;
+  }
+  70% {
+    transform: rotate(calc(var(--rotation-end) * 0.85)) scale(1.02)
+      translate(calc(var(--scatter-x) * 1.5), calc(var(--scatter-y) * 1.5))
+      translateZ(0);
+    filter: drop-shadow(0 22px 44px rgba(0, 0, 0, 0.35));
+    z-index: 50;
+  }
+  82% {
+    transform: rotate(calc(var(--rotation-end) * 0.93)) scale(1.018)
+      translate(calc(var(--scatter-x) * 1), calc(var(--scatter-y) * 1))
+      translateZ(0);
+    filter: drop-shadow(0 18px 36px rgba(0, 0, 0, 0.28));
+    z-index: 40;
+  }
+  92% {
+    transform: rotate(calc(var(--rotation-end) * 0.98)) scale(1.008)
+      translate(calc(var(--scatter-x) * 0.35), calc(var(--scatter-y) * 0.35))
+      translateZ(0);
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.2));
+    z-index: 25;
+  }
+  98% {
+    transform: rotate(calc(var(--rotation-end) * 0.997)) scale(1.003)
+      translate(calc(var(--scatter-x) * 0.12), calc(var(--scatter-y) * 0.12))
+      translateZ(0);
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15));
+    z-index: 12;
+  }
+  100% {
+    transform: rotate(var(--rotation-end)) scale(1) translate(0px, 0px)
+      translateZ(0);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    z-index: 1;
+  }
+}
+
+/* True spatial movement animations - cards travel to their destinations */
+@keyframes magic-travel-short {
+  0% {
+    transform: translate(0px, 0px) rotate(0deg) scale(1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    z-index: 10;
+  }
+  25% {
+    transform: translate(var(--scatter-x), var(--scatter-y))
+      rotate(calc(var(--rotation-end) * 0.4)) scale(1.02);
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.25));
+    z-index: 20;
+  }
+  50% {
+    transform: translate(
+        calc(var(--scatter-x) * 0.8 + var(--target-x) * 0.2),
+        calc(var(--scatter-y) * 0.8 + var(--target-y) * 0.2)
+      )
+      rotate(calc(var(--rotation-end) * 0.7)) scale(1.015);
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.22));
+    z-index: 18;
+  }
+  75% {
+    transform: translate(
+        calc(var(--scatter-x) * 0.3 + var(--target-x) * 0.7),
+        calc(var(--scatter-y) * 0.3 + var(--target-y) * 0.7)
+      )
+      rotate(calc(var(--rotation-end) * 0.9)) scale(1.008);
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.18));
+    z-index: 15;
+  }
+  90% {
+    transform: translate(
+        calc(var(--target-x) * 0.95),
+        calc(var(--target-y) * 0.95)
+      )
+      rotate(calc(var(--rotation-end) * 0.98)) scale(1.002);
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.14));
+    z-index: 8;
+  }
+  100% {
+    transform: translate(var(--target-x), var(--target-y))
+      rotate(var(--rotation-end)) scale(1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    z-index: 1;
+  }
+}
+
+@keyframes magic-travel-medium {
+  0% {
+    transform: translate(0px, 0px) rotate(0deg) scale(1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    z-index: 10;
+  }
+  20% {
+    transform: translate(
+        calc(var(--scatter-x) * 0.8),
+        calc(var(--scatter-y) * 0.8)
+      )
+      rotate(calc(var(--rotation-end) * 0.3)) scale(1.025);
+    filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.3));
+    z-index: 30;
+  }
+  40% {
+    transform: translate(
+        calc(var(--scatter-x) + var(--target-x) * 0.1),
+        calc(var(--scatter-y) + var(--target-y) * 0.1)
+      )
+      rotate(calc(var(--rotation-end) * 0.6)) scale(1.02);
+    filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.28));
+    z-index: 35;
+  }
+  60% {
+    transform: translate(
+        calc(var(--scatter-x) * 0.5 + var(--target-x) * 0.5),
+        calc(var(--scatter-y) * 0.5 + var(--target-y) * 0.5)
+      )
+      rotate(calc(var(--rotation-end) * 0.8)) scale(1.012);
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.24));
+    z-index: 30;
+  }
+  80% {
+    transform: translate(
+        calc(var(--target-x) * 0.85),
+        calc(var(--target-y) * 0.85)
+      )
+      rotate(calc(var(--rotation-end) * 0.93)) scale(1.006);
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.18));
+    z-index: 20;
+  }
+  93% {
+    transform: translate(
+        calc(var(--target-x) * 0.97),
+        calc(var(--target-y) * 0.97)
+      )
+      rotate(calc(var(--rotation-end) * 0.99)) scale(1.002);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
+    z-index: 10;
+  }
+  100% {
+    transform: translate(var(--target-x), var(--target-y))
+      rotate(var(--rotation-end)) scale(1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    z-index: 1;
+  }
+}
+
+@keyframes magic-travel-long {
+  0% {
+    transform: translate(0px, 0px) rotate(0deg) scale(1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    z-index: 10;
+  }
+  15% {
+    transform: translate(
+        calc(var(--scatter-x) * 0.6),
+        calc(var(--scatter-y) * 0.6)
+      )
+      rotate(calc(var(--rotation-end) * 0.2)) scale(1.03);
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.35));
+    z-index: 40;
+  }
+  30% {
+    transform: translate(
+        calc(var(--scatter-x) * 1.1),
+        calc(var(--scatter-y) * 1.1)
+      )
+      rotate(calc(var(--rotation-end) * 0.45)) scale(1.025);
+    filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.4));
+    z-index: 50;
+  }
+  45% {
+    transform: translate(
+        calc(var(--scatter-x) * 0.9 + var(--target-x) * 0.2),
+        calc(var(--scatter-y) * 0.9 + var(--target-y) * 0.2)
+      )
+      rotate(calc(var(--rotation-end) * 0.65)) scale(1.02);
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.35));
+    z-index: 45;
+  }
+  65% {
+    transform: translate(
+        calc(var(--scatter-x) * 0.4 + var(--target-x) * 0.6),
+        calc(var(--scatter-y) * 0.4 + var(--target-y) * 0.6)
+      )
+      rotate(calc(var(--rotation-end) * 0.82)) scale(1.015);
+    filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.28));
+    z-index: 35;
+  }
+  82% {
+    transform: translate(
+        calc(var(--target-x) * 0.88),
+        calc(var(--target-y) * 0.88)
+      )
+      rotate(calc(var(--rotation-end) * 0.94)) scale(1.008);
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+    z-index: 25;
+  }
+  94% {
+    transform: translate(
+        calc(var(--target-x) * 0.98),
+        calc(var(--target-y) * 0.98)
+      )
+      rotate(calc(var(--rotation-end) * 0.99)) scale(1.002);
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.14));
+    z-index: 12;
+  }
+  100% {
+    transform: translate(var(--target-x), var(--target-y))
+      rotate(var(--rotation-end)) scale(1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    z-index: 1;
+  }
+}
+
+/* Light spins: Quick start, gentle slowdown */
+@keyframes magic-spin-light {
+  0% {
+    transform: rotate(0deg) scale(1) translateZ(0);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    z-index: 10;
+  }
+  25% {
+    transform: rotate(calc(var(--rotation-end) * 0.45)) scale(1.02)
+      translateZ(0);
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
+    z-index: 15;
+  }
+  50% {
+    transform: rotate(calc(var(--rotation-end) * 0.72)) scale(1.01)
+      translateZ(0);
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15));
+    z-index: 12;
+  }
+  75% {
+    transform: rotate(calc(var(--rotation-end) * 0.88)) scale(1.005)
+      translateZ(0);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
+    z-index: 8;
+  }
+  90% {
+    transform: rotate(calc(var(--rotation-end) * 0.96)) scale(1.002)
+      translateZ(0);
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.1));
+    z-index: 5;
+  }
+  100% {
+    transform: rotate(var(--rotation-end)) scale(1) translateZ(0);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    z-index: 1;
+  }
+}
+
+/* Medium spins: Sustained momentum, gradual deceleration */
+@keyframes magic-spin-medium {
+  0% {
+    transform: rotate(0deg) scale(1) translateZ(0);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    z-index: 10;
+  }
+  15% {
+    transform: rotate(calc(var(--rotation-end) * 0.25)) scale(1.03)
+      translateZ(0);
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.25));
+    z-index: 25;
+  }
+  35% {
+    transform: rotate(calc(var(--rotation-end) * 0.58)) scale(1.015)
+      translateZ(0);
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+    z-index: 20;
+  }
+  55% {
+    transform: rotate(calc(var(--rotation-end) * 0.78)) scale(1.01)
+      translateZ(0);
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.18));
+    z-index: 15;
+  }
+  75% {
+    transform: rotate(calc(var(--rotation-end) * 0.9)) scale(1.005)
+      translateZ(0);
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15));
+    z-index: 10;
+  }
+  88% {
+    transform: rotate(calc(var(--rotation-end) * 0.97)) scale(1.002)
+      translateZ(0);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
+    z-index: 5;
+  }
+  100% {
+    transform: rotate(var(--rotation-end)) scale(1) translateZ(0);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    z-index: 1;
+  }
+}
+
+/* Heavy spins: Slow start, long sustained spin, gentle landing */
+@keyframes magic-spin-heavy {
+  0% {
+    transform: rotate(0deg) scale(1) translateZ(0);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    z-index: 10;
+  }
+  8% {
+    transform: rotate(calc(var(--rotation-end) * 0.12)) scale(1.04)
+      translateZ(0);
+    filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.3));
+    z-index: 40;
+  }
+  20% {
+    transform: rotate(calc(var(--rotation-end) * 0.35)) scale(1.025)
+      translateZ(0);
+    filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.25));
+    z-index: 35;
+  }
+  35% {
+    transform: rotate(calc(var(--rotation-end) * 0.58)) scale(1.02)
+      translateZ(0);
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.22));
+    z-index: 30;
+  }
+  50% {
+    transform: rotate(calc(var(--rotation-end) * 0.74)) scale(1.015)
+      translateZ(0);
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+    z-index: 25;
+  }
+  65% {
+    transform: rotate(calc(var(--rotation-end) * 0.85)) scale(1.01)
+      translateZ(0);
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.18));
+    z-index: 20;
+  }
+  80% {
+    transform: rotate(calc(var(--rotation-end) * 0.93)) scale(1.005)
+      translateZ(0);
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15));
+    z-index: 15;
+  }
+  92% {
+    transform: rotate(calc(var(--rotation-end) * 0.98)) scale(1.002)
+      translateZ(0);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
+    z-index: 8;
+  }
+  100% {
+    transform: rotate(var(--rotation-end)) scale(1) translateZ(0);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    z-index: 1;
+  }
+}

@@ -1,0 +1,63 @@
+/* eslint-env node */
+/** @type {import('eslint').Linter.Config} */
+module.exports = {
+  root: true,
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 2022,
+    sourceType: 'module',
+    // No project reference in root since we have multiple TypeScript projects
+  },
+  plugins: ['@typescript-eslint'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    // Type checking config is only used in service-specific configs
+  ],
+  rules: {
+    // Enforce consistent code style
+    'indent': ['warn', 2],
+    'quotes': ['warn', 'single', { 'avoidEscape': true }],
+    'semi': ['warn', 'always'],
+    
+    // TypeScript-specific rules
+    '@typescript-eslint/explicit-function-return-type': ['warn', { 
+      'allowExpressions': true,
+      'allowTypedFunctionExpressions': true 
+    }],
+    '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/no-unused-vars': ['warn', { 
+      'argsIgnorePattern': '^_',
+      'varsIgnorePattern': '^_' 
+    }],
+    
+    // Best practices
+    'no-console': ['warn', { 'allow': ['warn', 'error', 'info'] }],
+    'prefer-const': 'warn',
+    'no-var': 'warn',
+    
+    // Error handling
+    'no-throw-literal': 'warn',
+    'prefer-promise-reject-errors': 'warn',
+    
+    // Maintainability
+    'max-lines-per-function': ['warn', { 
+      'max': 100,
+      'skipBlankLines': true,
+      'skipComments': true 
+    }],
+    'complexity': ['warn', 15],
+  },
+  overrides: [
+    {
+      // Test files can have different rules
+      files: ['**/*.test.ts', '**/*.spec.ts'],
+      rules: {
+        'max-lines-per-function': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+        'no-console': 'off',
+      },
+    },
+  ],
+  ignorePatterns: ['dist/', 'node_modules/', 'coverage/'],
+};
