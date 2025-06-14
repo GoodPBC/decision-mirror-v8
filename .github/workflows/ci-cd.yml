@@ -119,6 +119,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Fetch full history for comparison
       
     - name: Check PR title format
       run: |
@@ -143,8 +145,6 @@ jobs:
         
     - name: Check file changes
       run: |
-        # Fetch base branch for comparison
-        git fetch origin ${{ github.base_ref }}
         # Prevent accidental commits of sensitive files
         CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
         if echo "$CHANGED_FILES" | grep -E "(\.env$|\.env\.local$|\.env\.production$|\.key$|\.pem$)"; then
