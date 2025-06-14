@@ -10,6 +10,12 @@ on:
   push:
     branches: [ main ]
 
+# Grant necessary permissions for commenting on PRs
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
 # Cancel in-progress runs for the same PR/branch
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
