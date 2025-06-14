@@ -1,3 +1,7 @@
+## CI/CD Testing
+
+This project now has a complete CI/CD pipeline configured. For detailed deployment information, see [CLAUDE.md](./CLAUDE.md) and [DOCS/DEPLOYMENT.md](./DOCS/DEPLOYMENT.md).
+
 ## Development Commands
 
 ### Essential Commands

@@ -52,7 +52,6 @@ export default function DecisionMirror() {
   const stageStartTime = useRef<number>(Date.now())
 
   const handleUserMedia = useCallback(() => {
-    console.log('Camera access granted')
     setCameraError('')
     setUsingCamera(true)
     setUserJourney((prev) => ({ ...prev, cameraEnabled: true }))
@@ -60,7 +59,6 @@ export default function DecisionMirror() {
   }, [])
 
   const handleUserMediaError = useCallback((error: any) => {
-    console.error('Camera access error:', error)
     if (error.name === 'NotAllowedError') {
       setCameraError(
         'Camera access was denied. Please enable camera permissions and try again.'
