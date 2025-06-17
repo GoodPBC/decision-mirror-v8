@@ -104,6 +104,23 @@
   animation: slide-up 0.5s ease-out;
 }
 
+/* Animation delays for staggered effects */
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animation-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animation-delay-600 {
+  animation-delay: 600ms;
+}
+
+.animation-delay-800 {
+  animation-delay: 800ms;
+}
+
 /* Gradient border for clicked cards - matches visualization stage text gradient */
 .gradient-border {
   position: relative;
