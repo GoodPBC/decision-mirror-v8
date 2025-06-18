@@ -28,7 +28,7 @@ interface UserJourney {
 }
 
 export default function DecisionMirror() {
-  const [stage, setStage] = useState<MirrorStage>('realization')
+  const [stage, setStage] = useState<MirrorStage>('intro')
   const [usingCamera, setUsingCamera] = useState(false)
   const [cameraError, setCameraError] = useState<string>('')
   const [showBubbles, setShowBubbles] = useState(false)
