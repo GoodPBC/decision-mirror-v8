@@ -199,6 +199,7 @@ jobs:
         vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
         scope: ${{ secrets.VERCEL_ORG_ID }}
         github-comment: true
+        alias-domains: dev.nexthing.ai
         
     - name: Comment deployment URL
       uses: actions/github-script@v7
@@ -252,6 +253,7 @@ jobs:
         vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
         vercel-args: '--prod'
         scope: ${{ secrets.VERCEL_ORG_ID }}
+        alias-domains: nexthing.ai
         
     - name: Notify deployment success
       run: |
