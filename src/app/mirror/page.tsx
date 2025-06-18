@@ -28,7 +28,7 @@ interface UserJourney {
 }
 
 export default function DecisionMirror() {
-  const [stage, setStage] = useState<MirrorStage>('intro')
+  const [stage, setStage] = useState<MirrorStage>('realization')
   const [usingCamera, setUsingCamera] = useState(false)
   const [cameraError, setCameraError] = useState<string>('')
   const [showBubbles, setShowBubbles] = useState(false)
@@ -394,20 +394,9 @@ export default function DecisionMirror() {
               <PersonalizedImpactVisualization
                 userJourney={userJourney}
                 animationDelay={500}
-                onComplete={() => setShowContinueButton(true)}
+                onComplete={() => setStage('solution')}
               />
             </div>
-
-            {showContinueButton && (
-              <div className="pt-4">
-                <button
-                  onClick={() => setStage('solution')}
-                  className="bg-purple-600 text-white px-8 py-4 rounded-lg hover:bg-purple-700 transition-colors font-normal text-lg animate-pulse"
-                >
-                  Show Me The Solution
-                </button>
-              </div>
-            )}
           </div>
         )
 
